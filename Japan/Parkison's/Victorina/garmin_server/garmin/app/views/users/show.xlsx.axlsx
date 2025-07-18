@@ -1,0 +1,102 @@
+wb = xlsx_package.workbook
+wb.styles do |style|
+	predefined_format_time_only = wb.styles.add_style num_fmt: 18
+	predefined_format_date_only = wb.styles.add_style format_code: "yyyy-mm-dd"
+	predefined_format_date_time = wb.styles.add_style format_code: "yyyy-mm-dd h:mm:ss AM/PM"
+	predefined_format = wb.styles.add_style num_fmt: 22
+
+	wb.add_worksheet(name: "Heart Rate") do |sheet|
+		sheet.add_row [
+			"Timestamp", "Heart Rate (in Beats per minute)"
+		]
+		@heart_rate_chart_data.each do |timestamp, heart_rate|
+			sheet.add_row [
+				timestamp,
+				heart_rate
+			], style: [
+				predefined_format_date_time,
+				nil
+			]
+		end
+	end
+
+	wb.add_worksheet(name: "Sleep") do |sheet|
+		sheet.add_row [
+			"Calendar Date", "Start Time", "End Time", "Sleep Type"
+		]
+		@sleep_chart_data.each do |sleep_chart_data|
+			sleep_chart_data[:sleep_chart_data].each do |sleep_type, start_time, end_time|
+				sheet.add_row [
+					sleep_chart_data[:calendar_date],
+					start_time, end_time,
+					sleep_type
+				], style: [
+					predefined_format_date_only,
+					predefined_format_date_time, predefined_format_date_time,
+					nil
+				]
+			end
+		end
+	end
+
+	wb.add_worksheet(name: "Stress") do |sheet|
+		sheet.add_row [
+			"Timestamp", "Stress Score", "Stress Interpretation"
+		]
+		@stress_chart_data.each do |timestamp, stress_score|
+			sheet.add_row [
+				timestamp,
+				stress_score,
+				interpret_stress(stress_score)
+			], style: [
+				predefined_format_date_time,
+				nil, nil
+			]
+		end
+	end
+
+	wb.add_worksheet(name: "Steps") do |sheet|
+		sheet.add_row [
+			"Timestamp", "Number of Steps"
+		]
+		@epoch_chart_data.reverse_each do |timestamp, number_of_steps|
+			sheet.add_row [
+				timestamp,
+				number_of_steps,
+			], style: [
+				predefined_format_date_time,
+				nil
+			]
+		end
+	end
+
+	wb.add_worksheet(name: "Blood Oxygen (Pulse Ox)") do |sheet|
+		sheet.add_row [
+			"Timestamp", "Blood Oxygen (in %)"
+		]
+		@pulse_ox_chart_data.each do |timestamp, pulse_ox|
+			sheet.add_row [
+				timestamp,
+				pulse_ox
+			], style: [
+				predefined_format_date_time,
+				nil
+			]
+		end
+	end
+
+	wb.add_worksheet(name: "Respiration") do |sheet|
+		sheet.add_row [
+			"Timestamp", "Respiration (in Breaths per minute)"
+		]
+		@respiration_chart_data.each do |timestamp, respiration|
+			sheet.add_row [
+				timestamp,
+				respiration
+			], style: [
+				predefined_format_date_time,
+				nil
+			]
+		end
+	end
+end

@@ -1,0 +1,53 @@
+{
+  "name": "abc2023",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "notebook",
+  "shutdownAction": "none",
+  // JNV's note: Important to prevent the container from running default command
+  "overrideCommand": false,
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+  "workspaceFolder": "/workspaces",
+  "remoteUser": "root",
+  "forwardPorts": [
+    8889
+  ],
+  "portsAttributes": {
+    "8889": {
+      "label": "Jupyter",
+      "requireLocalPort": true,
+      "onAutoForward": "ignore"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/opt/conda/bin/python"
+      },
+      "extensions": [
+        "donjayamanne.githistory",
+        "GitHub.copilot-nightly",
+        "GitHub.copilot-labs",
+        "GitHub.codespaces",
+        "eamodio.gitlens",
+        "ecmel.vscode-html-css",
+        "REditorSupport.r",
+        "RDebugger.r-debugger",
+        "ms-python.autopep8",
+        "ms-azuretools.vscode-docker",
+        "ms-python.isort",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.vscode-jupyter-cell-tags",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "ms-toolsai.vscode-jupyter-slideshow",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "ms-vsliveshare.vsliveshare",
+        "ms-vscode.live-server",
+        "GrapeCity.gc-excelviewer",
+        "mechatroner.rainbow-csv",
+        "marp-team.marp-vscode"
+      ]
+    }
+  }
+}

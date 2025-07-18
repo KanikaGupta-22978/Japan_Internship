@@ -1,0 +1,199 @@
+<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+
+<h1>User ID: <%= @user.remarks.nil? ? @user.uid : @user.remarks %></h1>
+<hr>
+
+<%= form_for_filterrific @heart_rate_filterrific, url: user_path(@user), html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
+  <div class="form-group">
+  	Calendar Date
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+            <%= f.text_field :with_calendar_date_gte, class: 'form-control datetimepicker-input p-input', readonly: true, data: { target: "#datetimepicker1"} %>
+            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div>
+     	</div>
+      <div class="col">
+        <div class="form-group">
+          <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+            <%= f.text_field :with_calendar_date_lte, class: 'form-control datetimepicker-input p-input', readonly: true, data: { target: "#datetimepicker2"} %>
+            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div>
+     	</div>
+    </div>
+	</div>
+
+  <div class="form-group">
+  	<div class="row">
+  		<div class="col">
+		  	<%= f.submit 'Filter', class: 'btn btn-primary' %>
+		  	<%= link_to(
+		      'Reset filters',
+		      reset_filterrific_url,
+		      class: 'btn btn-default',
+		      data: { turbolinks: false }
+		    ) %>
+		    <%= link_to 'Download Excel File', user_path(@user, format: :xlsx), class: 'btn btn-default' %>
+  		</div>
+  	</div>
+  </div>
+  <%= render_filterrific_spinner %>
+<% end %>
+
+<% if !@forecasts.nil? %>
+  <h2>Wearing-Off Forecast</h2>
+  <%#= column_chart @forecasts,
+      xtitle: "Time", points: true, suffix: "%", round: 2,
+      ytitle: "Wearing-Off Forecast Probability", 
+      library: { datalabels: {
+                  anchor: 'end',
+                  align: 'top',
+                  font: {
+                      weight: 'bold',
+                      size: 16
+                  }
+              } },
+      dataset: { backgroundColor: "#ffcccb", borderColor: "#ffcccb" } %>
+  <hr>
+<% end %>
+
+<h2>Heart Rate</h2>
+<% if !@heart_rate_chart_data.empty? %>
+  <h3>
+    From <%= @heart_rate_chart_data.keys.min.to_date %> To <%= @heart_rate_chart_data.keys.max.to_date %>
+  </h3>
+<% end %>
+<hr>
+
+<div>
+  <% if @heart_rate_chart_data.empty? %>
+    No available data.
+  <% else %>
+	 <%= line_chart @heart_rate_chart_data,
+    xtitle: "Time", ytitle: "Beats per minute", 
+    points: false, download: { filename: "heart_rate" }  %>
+  <% end %>
+</div>
+
+<h2>Blood Oxygen (Pulse Ox)</h2>
+<% if !@pulse_ox_chart_data.empty? %>
+  <h3>
+    From <%= @pulse_ox_chart_data.keys.min.to_date %> To <%= @pulse_ox_chart_data.keys.max.to_date %>
+  </h3>
+<% end %>
+<hr>
+
+<div>
+  <% if @pulse_ox_chart_data.empty? %>
+    No available data.
+  <% else %>
+   <%= column_chart @pulse_ox_chart_data,
+    xtitle: "Time", ytitle: "%", 
+    points: false, download: { filename: "pulse_ox" } %>
+  <% end %>
+</div>
+
+<h2>Respiration</h2>
+<% if !@respiration_chart_data.empty? %>
+  <h3>
+    From <%= @respiration_chart_data.keys.min.to_date %> To <%= @respiration_chart_data.keys.max.to_date %>
+  </h3>
+<% end %>
+<hr>
+
+<div>
+  <% if @respiration_chart_data.empty? %>
+    No available data.
+  <% else %>
+   <%= line_chart @respiration_chart_data,
+    xtitle: "Time", ytitle: "Breaths per minute", 
+    points: false, download: { filename: "respiration" }  %>
+  <% end %>
+</div>
+
+<h2>Sleep</h2>
+<hr>
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item dropdown">
+    <a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      Available Dates
+    </a>
+    <div class="dropdown-menu scrollable-menu">
+      <% @sleep_chart_data.each do |sleep_chart_data| %>
+        <a class="dropdown-item" id="pills-<%= sleep_chart_data[:calendar_date] %>-tab" data-toggle="pill" href="#pills-<%= sleep_chart_data[:calendar_date] %>" role="tab" aria-controls="pills-<%= sleep_chart_data[:calendar_date] %>" aria-selected="true">
+          <%= sleep_chart_data[:calendar_date] %>
+        </a>
+      <% end %>
+    </div>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <% @sleep_chart_data.each do |sleep_chart_data| %>
+    <div class="tab-pane fade" id="pills-<%= sleep_chart_data[:calendar_date] %>" role="tabpanel" aria-labelledby="pills-<%= sleep_chart_data[:calendar_date] %>-tab">
+      <div>
+        <h3>For <%= sleep_chart_data[:calendar_date] %></h3>
+        <%= timeline sleep_chart_data[:sleep_chart_data], id: "sleep-chart-#{sleep_chart_data[:calendar_date]}", height: "250px" %>
+      </div>
+      <%=  %>
+    </div>
+  <% end %>
+</div>
+
+<h2>Stress</h2>
+<% if !@stress_chart_data.empty? %>
+<h3>
+  From <%= @stress_chart_data.keys.min.to_date %> To <%= @stress_chart_data.keys.max.to_date %>
+</h3>
+<% end %>
+<small>
+  Note: 
+  <ul>
+    <li>Legends can be clicked to add/remove stress type in the chart.</li>
+    <li>Score Interpretations</li>
+    <ul>
+      <li>-2: Too much motion</li>
+      <li>-1: Not enough data to detect stress.</li>
+      <li>1 - 25: Rest</li>
+      <li>26 - 50: Low</li>
+      <li>51 - 75: Medium</li>
+      <li>76 - 100: High</li>
+    </ul>
+  </ul>
+</small>
+<hr>
+
+<div>
+  <% if @stress_chart_data.empty? %>
+    No available data.
+  <% else %>
+   <%= area_chart @grouped_stress_chart_data,
+    xtitle: "Time", ytitle: "Stress Score", 
+    points: false, download: { filename: "stress" },
+    colors: ["orange", "blue", "gray", "lightblue", "gray", "red"] %>
+  <% end %>
+</div>
+
+<h2>Steps</h2>
+<% if !@epoch_chart_data.empty? %>
+<h3>
+  From <%= @epoch_chart_data.keys.min.to_date %> To <%= @epoch_chart_data.keys.max.to_date %>
+</h3>
+<% end %>
+
+<div>
+  <% if @epoch_chart_data.empty? %>
+    No available data.
+  <% else %>
+   <%= line_chart @epoch_chart_data,
+    xtitle: "Time", ytitle: "Number of Steps", 
+    curve: false, points: false, download: { filename: "steps" }  %>
+  <% end %>
+</div>

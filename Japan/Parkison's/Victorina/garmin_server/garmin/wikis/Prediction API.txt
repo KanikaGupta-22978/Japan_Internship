@@ -1,0 +1,31 @@
+Sample URL: https://garmin.xform.ph/api/predict/1/timestamp/2023-11-04%2020:33:00
+
+Expected Input:
+User ID: 1
+Timestamp: 2023-11-04 09: 00: 00
+Note: Do encode the timestamp before sending the request
+
+Expected Output: 
+{
+  "message": "ok",
+  "input": {
+    "id": "1",
+    "timestamp": "2023-11-04T09:00:00.000+00:00"
+  },
+  "forecasts": {
+    "10:00AM": 4.1491,
+    "11:00AM": 9.0906,
+    "12:00PM": 3.5808,
+    " 1:00PM": 1.378,
+    " 2:00PM": 2.5439,
+    " 3:00PM": 2.2047,
+    " 4:00PM": 3.1621,
+    " 5:00PM": 6.0903,
+    " 6:00PM": 2.7118,
+    " 7:00PM": 5.81,
+    " 8:00PM": 2.0322,
+    " 9:00PM": 2.5607,
+    "10:00PM": 1.3787,
+    "11:00PM": 1.0458
+  }
+}

@@ -1,0 +1,27 @@
+<h2>
+  Shibata Laboratory's Garmin Viewer
+</h2>
+<p class="lead">
+  You need a Garmin Connect account to use Shibata Laboratory's Garmin Viewer.
+</p>
+<%= link_to "Sign in with Garmin", omniauth_authorize_path(resource_name, "garmin"), 
+  class: "btn btn-primary" %>
+
+<%#= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <!-- <div class="form-inputs"> -->
+    <%#= f.input :email,
+                required: false,
+                autofocus: true,
+                input_html: { autocomplete: "email" } %>
+    <%#= f.input :password,
+                required: false,
+                input_html: { autocomplete: "current-password" } %>
+    <%#= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  <!-- </div> -->
+
+  <!-- <div class="form-actions"> -->
+    <%#= f.button :submit, "Log in" %>
+  <!-- </div> -->
+<%# end %>
+
+<%#= render "users/shared/links" %>

@@ -1,0 +1,27 @@
+/* @theme mytheme */
+
+@import 'academic';
+
+:root {
+  --color-foreground: #000000;
+  --color-highlight: #000000;
+}
+
+section.lead h1 {
+  color: #000000;
+}
+
+section::after {
+  font-weight: 500;
+  content: attr(data-marpit-pagination);
+}
+
+header {
+  background-color: #6226EE;
+  box-shadow: 0px 5px 6px #9E78F4;
+}
+
+/* Make font size smaller */
+section.lead h1 {
+  font-size: 2.5em;
+}

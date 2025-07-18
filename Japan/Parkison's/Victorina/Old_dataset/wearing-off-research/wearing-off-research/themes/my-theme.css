@@ -1,0 +1,17 @@
+/* @theme mytheme */
+
+@import 'academic';
+
+section.lead h1 {
+  color: #000000;
+}
+
+section::after {
+  font-weight: 500;
+  content: attr(data-marpit-pagination);
+}
+
+header {
+  background-color: #6226EE;
+  box-shadow: 0px 5px 6px #9E78F4;
+}

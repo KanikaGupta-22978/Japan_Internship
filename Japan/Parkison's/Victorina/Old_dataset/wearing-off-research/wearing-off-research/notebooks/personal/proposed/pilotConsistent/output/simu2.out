@@ -1,0 +1,36 @@
+ERROR: LoadError: ArgumentError: Cannot open 'output/full-case2.csv': not a file
+Stacktrace:
+ [1] readdlm_auto(input::String, dlm::Char, T::Type, eol::Char, auto::Bool; opts::Base.Pairs{Symbol, Union{}, Tuple{}, NamedTuple{(), Tuple{}}})
+   @ DelimitedFiles /opt/julia-1.7.3/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:234
+ [2] readdlm_auto
+   @ /opt/julia-1.7.3/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:234 [inlined]
+ [3] #readdlm#5
+   @ /opt/julia-1.7.3/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:170 [inlined]
+ [4] readdlm
+   @ /opt/julia-1.7.3/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:170 [inlined]
+ [5] #readdlm#3
+   @ /opt/julia-1.7.3/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:118 [inlined]
+ [6] readdlm(input::String)
+   @ DelimitedFiles /opt/julia-1.7.3/share/julia/stdlib/v1.7/DelimitedFiles/src/DelimitedFiles.jl:118
+ [7] top-level scope
+   @ /workspaces/proposed/pilotConsistent/simu.jl:81
+in expression starting at /workspaces/proposed/pilotConsistent/simu.jl:81
+0.0030315151377.920703 seconds (28.30 M allocations: 888.590 GiB, 10.86% gc time, 1.05% compilation time)
+case:2
+ N:500000
+ rpt:1000 
+ nss:[1000, 2000, 3000, 5000, 10000]
+5×5 Matrix{Float64}:
+ 0.373073  0.212454   0.161189   0.118437   0.0877933
+ 0.189426  0.132746   0.11533    0.0933682  0.0794162
+ 0.157342  0.104216   0.0906162  0.0781025  0.0676687
+ 0.139851  0.0983766  0.0871498  0.076316   0.0673858
+ 0.144324  0.112203   0.099374   0.0902392  0.0773722
+
+5×3 Matrix{Float64}:
+ 1000.56   1236.43  1432.24
+ 1999.78   2476.38  2012.35
+ 3000.56   3712.19  2590.36
+ 5000.94   6169.23  3747.23
+ 9997.8   12180.8   6639.27
+3.0537697098004517

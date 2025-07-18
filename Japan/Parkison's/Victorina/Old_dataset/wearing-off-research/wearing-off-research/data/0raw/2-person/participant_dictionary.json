@@ -1,0 +1,16 @@
+{
+    "participant1": {
+        "fonlog_id": 5,
+        "start_date": "2021-02-23",
+        "end_date": "2021-03-23",
+        "end_date_plus_one": "2021-03-24",
+        "end_date_plus_two": "2021-03-25"
+    },
+    "participant2": {
+        "fonlog_id": 6,
+        "start_date": "2021-02-23",
+        "end_date": "2021-03-23",
+        "end_date_plus_one": "2021-03-24",
+        "end_date_plus_two": "2021-03-25"
+    }
+}

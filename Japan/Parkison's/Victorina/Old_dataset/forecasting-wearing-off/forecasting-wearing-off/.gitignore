@@ -1,0 +1,6 @@
+**/.ipynb_checkpoints
+**/data/**
+**/results/**
+**.DS_Store**
+bayesian/*
+classical machine learning/*

@@ -1,0 +1,26 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light shadow-sm">
+    <%= link_to "Garmin Viewer", root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <% if user_masquerade? %>
+          <li class="nav-item active">
+            <%= link_to back_masquerade_path(current_user), class: "nav-link" do %>
+              Reverse masquerade
+            <% end %>
+          </li>
+        <% end %>
+        
+        <!-- <li class="nav-item"> -->
+          <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+        <!-- </li> -->
+      </ul>
+      <% if user_signed_in? %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary"  %>
+      <% end %>
+    </div>
+  </nav>
+</header>

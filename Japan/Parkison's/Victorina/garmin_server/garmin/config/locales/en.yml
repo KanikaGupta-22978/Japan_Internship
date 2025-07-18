@@ -1,0 +1,7 @@
+en:
+  hello: "Hello world"
+  errors:
+    curl_timeout: 'Timeout.'
+    json_parser: 'Parsing error.'
+    exception: 'Error'
+    missing_data: 'Data not available'
